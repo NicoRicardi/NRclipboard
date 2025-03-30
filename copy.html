@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Copy Emails</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; margin-top: 50px; }
+        textarea { width: 80%; height: 100px; margin-top: 20px; }
+        button { padding: 10px 20px; font-size: 16px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <h2>Email List Copied!</h2>
+    <textarea id="emailList" readonly></textarea><br>
+    <button onclick="copyAgain()">Copy Again</button>
+
+    <script>
+        function getParameterByName(name) {
+            let url = new URL(window.location.href);
+            return decodeURIComponent(url.searchParams.get(name) || '');
+        }
+
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                document.getElementById("emailList").value = text;
+            });
+        }
+
+        function copyAgain() {
+            let text = document.getElementById("emailList").value;
+            navigator.clipboard.writeText(text);
+        }
+
+        // Get email list from URL and copy it
+        let emails = getParameterByName('text');
+        if (emails) copyToClipboard(emails);
+    </script>
+</body>
+</html>
+
